@@ -81,9 +81,9 @@ docs = [
 ]
 
 [project.urls]
-homepage = "https://github.com/rendeirolab/cellstate-pred"
-documentation = "https://github.com/rendeirolab/cellstate-pred/blob/main/README.md"
-repository = "https://github.com/rendeirolab/cellstate-pred"
+homepage = "https://github.com/ariadnavillam/cellstate-pred"
+documentation = "https://cellstate-pred.readthedocs.io"
+repository = "https://github.com/ariadnavillam/cellstate-pred"
 
 [project.gui-scripts]
 cellstate-pred = "cellstate_pred.console:main"
@@ -98,14 +98,6 @@ use_vars = true
 project_slug = "cellstate-pred"
 current_date = "$(date -u +\"%Y-%m-%d %H:%M:%S UTC\")"
 
-[tool.taskipy.tasks]
-requirements = { cmd = "uv sync --extra dev", help = "Install Python requirements" }
-backup_time = { cmd = "sh -c 'echo \"Last backup: {current_date}\" >> _backup_time && chmod 600 _backup_time'", help = "Record the last backup time" }
-sync = { cmd = "rsync --copy-links --progress -r . avillanueva@login:projects/{project_slug} && task backup_time", help = "Sync data/code to HPC cluster" }
-interactive = { cmd = "uv run --extra dev python -m IPython -i src/analysis.py", help = "Start an interactive IPython session" }
-analysis = { cmd = "uv runpython -u src/analysis.py", help = "Run all analysis steps" }
-figures = { cmd = "cd figures && bash process.sh", help = "Produce figures in various formats" }
-
 [tool.setuptools]
 license-files = []  # https://github.com/astral-sh/uv/issues/9513
 
@@ -117,25 +109,6 @@ write_to_template = 'version = __version__ = "{version}"'
 line-length = 90
 target-version = ['py312']
 include = '\.pyi?$'
-exclude = '''
-
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-  | foo.py           # also separately exclude a file named foo.py in
-                     # the root of the project
-)
-'''
 
 [tool.mypy]
 python_version = '3.12'
